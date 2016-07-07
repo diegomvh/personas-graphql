@@ -1,0 +1,19 @@
+{
+  "name": "personas-graphql",
+  "version": "1.0.0",
+  "description": "Servidor graphql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegomvh/personas-graphql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegomvh/personas-graphql/issues"
+  },
+  "homepage": "https://github.com/diegomvh/personas-graphql#readme"
+}
