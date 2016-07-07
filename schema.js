@@ -16,7 +16,6 @@ var schema = new graphql.GraphQLSchema({
     fields: {
       persona: {
         type: personaType,
-        // `args` describes the arguments that the `user` query accepts
         args: {
           id: { type: graphql.GraphQLString }
         },
