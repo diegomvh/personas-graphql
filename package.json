@@ -19,6 +19,7 @@
   "homepage": "https://github.com/diegomvh/personas-graphql#readme",
   "dependencies": {
     "koa": "^1.2.0",
-    "koa-handlebars": "^0.5.7"
+    "koa-handlebars": "^0.5.7",
+    "koa-router": "^5.4.0"
   }
 }

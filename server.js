@@ -1,16 +1,18 @@
 var koa = require("koa");
 var handlebars = require("koa-handlebars");
+var Router = require("koa-router");
 var graphql = require('graphql').graphql;
 var schema = require('./schema');
 
 let port = process.env.PORT || 3000;
+let routes = new Router();
 var app = koa();
 
 app.use(handlebars({
   defaultLayout: "base"
 }));
 
-app.use(function* () {
+routes.get("/api", function* () {
   var query = this.query.query;
   var params = this.query.params;
 
@@ -26,6 +28,15 @@ app.use(function* () {
 
   this.body = resp;
 });
+
+routes.get("/", function* () {
+  yield this.render("index", {
+    title: "Test Page",
+    name: "World"
+  });
+});
+
+app.use(routes.middleware());
 
 app.listen(port, () => {
   console.log("Server is up an running on port " + port);
