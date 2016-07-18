@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var koa = require("koa");
 var handlebars = require("koa-handlebars");
 var Router = require("koa-router");
@@ -17,7 +19,7 @@ routes.get("/api", function* () {
   var params = this.query.params;
 
   var resp = yield graphql(QuerySchema, query, '', params);
-
+  console.log(resp);
   if (resp.errors) {
     this.status = 400;
     this.body = {

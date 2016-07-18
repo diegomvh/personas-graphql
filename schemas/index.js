@@ -1,10 +1,14 @@
-var graphql = require('graphql');
+const graphql = require('graphql');
+const db = require('../db');
 
-var PersonaType = require('./persona');
-var AddressType = require('./address');
+const PersonaType = require('./persona');
+const AddressType = require('./address');
 
-var personas = require('./personas.json');
-var addresses = require('./addresses.json');
+const personas = require('./personas.json');
+const addresses = require('./addresses.json');
+
+const personasCollection = db.collection('personas');
+const addressesCollection = db.collection('addresses');
 
 var QuerySchema = new graphql.GraphQLSchema({
   query: new graphql.GraphQLObjectType({
@@ -16,16 +20,16 @@ var QuerySchema = new graphql.GraphQLSchema({
           id: { type: graphql.GraphQLString }
         },
         resolve: (root, args) => {
-          return personas[args.id];
+          return personasCollection.document(args.id);
         }
       },
       address: {
         type: AddressType,
         args: {
-          place_id: { type: graphql.GraphQLString }
+          id: { type: graphql.GraphQLString }
         },
         resolve: (root, args) => {
-          return addresses[args.place_id];
+          return addressesCollection.document(args.id);
         }
       }
     }

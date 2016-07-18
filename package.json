@@ -19,6 +19,7 @@
   "homepage": "https://github.com/diegomvh/personas-graphql#readme",
   "dependencies": {
     "arangojs": "^5.0.2",
+    "dotenv": "^2.0.0",
     "graphql": "^0.6.1",
     "koa": "^1.2.0",
     "koa-handlebars": "^0.5.7",

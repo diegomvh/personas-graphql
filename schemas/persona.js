@@ -1,4 +1,4 @@
-var gql = require('graphql');
+const gql = require('graphql');
 
 const SexoType = new gql.GraphQLEnumType({
   name: 'Sexo',
@@ -15,7 +15,12 @@ const SexoType = new gql.GraphQLEnumType({
 var PersonaType = new gql.GraphQLObjectType({
   name: 'Persona',
   fields: () => ({
-    _key: { type: gql.GraphQLString },
+    id: {
+      type: new gql.GraphQLNonNull(gql.GraphQLString),
+      resolve(persona) {
+        return persona._key;
+      }
+    },
     documento: { type: new gql.GraphQLNonNull(gql.GraphQLInt) },
     clase: { type: gql.GraphQLInt },
     apellidos: { type: gql.GraphQLString },
