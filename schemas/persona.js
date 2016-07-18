@@ -3,6 +3,7 @@ var graphql = require('graphql');
 var PersonaType = new graphql.GraphQLObjectType({
   name: 'Persona',
   fields: {
+    _key: { type: graphql.GraphQLString },
     documento: { type: graphql.GraphQLNumber },
     clase: { type: graphql.GraphQLNumber },
     apellidos: { type: graphql.GraphQLString },

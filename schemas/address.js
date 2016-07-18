@@ -55,6 +55,7 @@ var GeometryType = new graphql.GraphQLObjectType({
 var AddressType = new graphql.GraphQLObjectType({
   name: 'Address',
   fields: () => ({
+    _key: { type: graphql.GraphQLString },
     types: {
       type: new graphql.GraphQLList(graphql.GraphQLString)
     },
