@@ -1,12 +1,22 @@
 [
   {
-    "apellidos": "Apellidos",
+    "apellidos": "Apellidos 1",
     "clase": 1992,
     "documento": 11111111,
-    "domicilio": "Domicilio",
-    "nombre_completo": "Apellidos, Nombres",
-    "nombres": "Nombres",
+    "domicilio": "Domicilio 1",
+    "nombre_completo": "Apellidos 1, Nombres 1",
+    "nombres": "Nombres 1",
     "sexo": "S",
     "tipo_documento": "DNI"
   },
+  {
+    "apellidos": "Apellidos 2",
+    "clase": 1992,
+    "documento": 11111112,
+    "domicilio": "Domicilio 2",
+    "nombre_completo": "Apellidos 2, Nombres 2",
+    "nombres": "Nombres 2",
+    "sexo": "S",
+    "tipo_documento": "DNI"
+  }
 ]

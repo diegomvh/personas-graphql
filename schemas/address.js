@@ -1,16 +1,16 @@
-var graphql = require('graphql');
+var gql = require('graphql');
 
 var data = require('./addresses.json');
 
-var LatLngType = new graphql.GraphQLObjectType({
+var LatLngType = new gql.GraphQLObjectType({
   name: 'LatLng',
   fields: () => ({
-    lat: { type: graphql.GraphQLNumber },
-    lng: { type: graphql.GraphQLNumber }
+    lat: { type: new gql.GraphQLNonNull(gql.GraphQLFloat) },
+    lng: { type: new gql.GraphQLNonNull(gql.GraphQLFloat) }
   })
 });
 
-var LatLngBoundsType = new graphql.GraphQLObjectType({
+var LatLngBoundsType = new gql.GraphQLObjectType({
   name: 'LatLngBounds',
   fields: () => ({
     northeast: { type: LatLngType },
@@ -18,54 +18,67 @@ var LatLngBoundsType = new graphql.GraphQLObjectType({
   })
 });
 
-var AddressComponentType = new graphql.GraphQLObjectType({
+var AddressComponentType = new gql.GraphQLObjectType({
   name: 'AddressComponent',
   fields: () => ({
-    short_name: { type: graphql.GraphQLString },
-    long_name: { type: graphql.GraphQLString },
+    short_name: { type: gql.GraphQLString },
+    long_name: { type: gql.GraphQLString },
     postcode_localities: {
-      type: new graphql.GraphQLList(graphql.GraphQLString)
+      type: new gql.GraphQLList(gql.GraphQLString)
     },
     types: {
-      type: new graphql.GraphQLList(graphql.GraphQLString)
+      type: new gql.GraphQLList(gql.GraphQLString)
     }
   })
 });
 
-var GeocoderLocationType = new graphql.GraphQLEnumType({
+const GeocoderLocationType = new gql.GraphQLEnumType({
   name: 'GeocoderLocation',
-  values: () => ({
-    ROOFTOP: { value: 'ROOFTOP' },
-    RANGE_INTERPOLATED: { value: 'RANGE_INTERPOLATED' },
-    GEOMETRIC_CENTER: { value: 'GEOMETRIC_CENTER' },
-    APPROXIMATE: { value: 'APPROXIMATE' }
-  })
+  description: 'Stores additional data about the specified location.',
+  values: {
+    ROOFTOP: {
+      value: 'ROOFTOP',
+      description: 'Indicates that the returned result is a precise geocode for which we have location information accurate down to street address precision.'
+    },
+    RANGE_INTERPOLATED: {
+      value: 'RANGE_INTERPOLATED',
+      description: 'Indicates that the returned result reflects an approximation (usually on a road) interpolated between two precise points (such as intersections). Interpolated results are generally returned when rooftop geocodes are unavailable for a street address.'
+    },
+    GEOMETRIC_CENTER: {
+      value: 'GEOMETRIC_CENTER',
+      description: 'Indicates that the returned result is the geometric center of a result such as a polyline (for example, a street) or polygon (region).'
+    },
+    APPROXIMATE: {
+      value: 'APPROXIMATE',
+      description: 'Indicates that the returned result is approximate.'
+    }
+  }
 });
 
-var GeometryType = new graphql.GraphQLObjectType({
+var GeometryType = new gql.GraphQLObjectType({
   name: 'Geometry',
   fields: () => ({
     location: { type: LatLngType },
-    location_type: { type: GeocoderLocationType },
+    location_type: { type: new gql.GraphQLNonNull(GeocoderLocationType) },
     viewport: { type: LatLngBoundsType },
     bounds: { type: LatLngBoundsType }
   })
 });
 
-var AddressType = new graphql.GraphQLObjectType({
+var AddressType = new gql.GraphQLObjectType({
   name: 'Address',
   fields: () => ({
-    _key: { type: graphql.GraphQLString },
+    _key: { type: gql.GraphQLString },
     types: {
-      type: new graphql.GraphQLList(graphql.GraphQLString)
+      type: new gql.GraphQLList(gql.GraphQLString)
     },
-    formatted_address: { type: graphql.GraphQLString },
+    formatted_address: { type: gql.GraphQLString },
     address_components: {
-      type: new graphql.GraphQLList(AddressComponentType)
+      type: new gql.GraphQLList(AddressComponentType)
     },
-    place_id: { type: graphql.GraphQLString },
+    place_id: { type: gql.GraphQLString },
     postcode_localities: {
-      type: new graphql.GraphQLList(graphql.GraphQLString)
+      type: new gql.GraphQLList(gql.GraphQLString)
     },
     geometry: { type: GeometryType }
   })

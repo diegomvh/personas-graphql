@@ -1,18 +1,30 @@
-var graphql = require('graphql');
+var gql = require('graphql');
 
-var PersonaType = new graphql.GraphQLObjectType({
-  name: 'Persona',
-  fields: {
-    _key: { type: graphql.GraphQLString },
-    documento: { type: graphql.GraphQLNumber },
-    clase: { type: graphql.GraphQLNumber },
-    apellidos: { type: graphql.GraphQLString },
-    nombres: { type: graphql.GraphQLString },
-    nombre_completo: { type: graphql.GraphQLString },
-    domicilio: { type: graphql.GraphQLString },
-    sexo: { type: graphql.GraphQLString },
-    tipo_documento: { type: graphql.GraphQLString }
+const SexoType = new gql.GraphQLEnumType({
+  name: 'Sexo',
+  values: {
+    F: {
+      value: 'F',
+    },
+    M: {
+      value: 'M',
+    }
   }
+});
+
+var PersonaType = new gql.GraphQLObjectType({
+  name: 'Persona',
+  fields: () => ({
+    _key: { type: gql.GraphQLString },
+    documento: { type: new gql.GraphQLNonNull(gql.GraphQLInt) },
+    clase: { type: gql.GraphQLInt },
+    apellidos: { type: gql.GraphQLString },
+    nombres: { type: gql.GraphQLString },
+    nombre_completo: { type: gql.GraphQLString },
+    domicilio: { type: gql.GraphQLString },
+    sexo: { type: new gql.GraphQLNonNull(SexoType) },
+    tipo_documento: { type: gql.GraphQLString }
+  })
 });
 
 module.exports = PersonaType;
